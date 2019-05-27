@@ -1,24 +1,21 @@
 library(shiny)
+library(dplyr)
+library(shinycssloaders)
+library(shinythemes)
 
-# Define UI for application that draws a histogram
-ui <- fluidPage(
-  
-  # Application title
-  titlePanel("Old Faithful Geyser Data"),
-  
-  # Sidebar with a slider input for number of bins 
-  sidebarLayout(
-    sidebarPanel(
-      sliderInput("bins",
-                  "Number of bins:",
-                  min = 1,
-                  max = 50,
-                  value = 30)
-    ),
-    
-    # Show a plot of the generated distribution
-    mainPanel(
-      plotOutput("distPlot")
-    )
+
+ui <- fluidPage(fixedRow(
+  column(9,
+         img(src="logo5.png", hight=135, width=1192),
+         fixedRow(navbarPage("",
+                             id= "tabSelected",
+                             source(file.path("ui", "tab-dataset.R"),  local = TRUE)$value,
+                             source(file.path("ui", "tab-settings.R"),  local = TRUE)$value,
+                             source(file.path("ui", "tab-analysis.R"),  local = TRUE)$value,
+                             source(file.path("ui", "tab-models.R"),  local = TRUE)$value,
+                             source(file.path("ui", "tab-results.R"),  local = TRUE)$value,
+                             source(file.path("ui", "tab-about.R"),  local = TRUE)$value)
+         )
   )
+)
 )
